@@ -25,10 +25,10 @@ public class SupportRequest {
     private Long id;
 
     @NotBlank
-    private String nameSolicitant;
+    private String requesterName;
     
     @NotNull
-    private LocalDateTime dateSolicitud;
+    private LocalDateTime requestDate;
 
     @ManyToOne (optional = false, fetch = FetchType.LAZY)
     private Topic topic;
@@ -52,8 +52,8 @@ public class SupportRequest {
     @PrePersist
     void onCreate(){
         this.creationDate=LocalDateTime.now();
-        if(this.dateSolicitud==null){
-            this.dateSolicitud=this.creationDate;
+        if(this.requestDate==null){
+            this.requestDate=this.creationDate;
         }
         if(this.status==null){
             this.status=RequestStatus.PENDIENTE;
@@ -70,20 +70,20 @@ public Long getId() {
 }
 
 
-public String getNameSolicitant() {
-    return nameSolicitant;
+public String getRequesterName() {
+    return requesterName;
 }
 
-public void setNameSolicitant(String nameSolicitant) {
-    this.nameSolicitant = nameSolicitant;
+public void setRequesterName(String nameSolicitant) {
+    this.requesterName = nameSolicitant;
 }
 
-public LocalDateTime getDateSolicitud() {
-    return dateSolicitud;
+public LocalDateTime getRequestDate() {
+    return requestDate;
 }
 
-public void setDateSolicitud(LocalDateTime dateSolicitud) {
-    this.dateSolicitud = dateSolicitud;
+public void setRequestDate(LocalDateTime dateSolicitud) {
+    this.requestDate = dateSolicitud;
 }
 
 public Topic getTopic() {
