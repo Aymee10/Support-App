@@ -1,0 +1,30 @@
+package dev.aymee.support_api.request;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import dev.aymee.support_api.topic.TopicDto;
+
+@RestController
+@RequestMapping("/api/requests")
+public class RequestController {
+   private final RequestService requestService;
+
+   public RequestController(RequestService requestService) {
+    this.requestService = requestService;
+   }
+     @GetMapping
+    public ResponseEntity<List<RequestDto>> getAllRequests() {
+        List<RequestDto> requests = requestService.getAllRequests();
+        return ResponseEntity.ok(requests);
+    }
+    @GetMapping("/topics")
+    public ResponseEntity<List<TopicDto>> getAllTopics() {
+        List<TopicDto> topics = requestService.getAllTopics();
+        return ResponseEntity.ok(topics);
+    }
+}
