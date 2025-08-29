@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
-@Table(name="Topic")
+@Table(name="topics")
 public class TopicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
