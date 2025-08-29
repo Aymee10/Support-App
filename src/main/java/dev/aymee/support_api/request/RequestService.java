@@ -6,9 +6,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
-import dev.aymee.support_api.request.RequestRepository;
-import dev.aymee.support_api.topic.TopicDto;
 import dev.aymee.support_api.topic.TopicEntity;
 import dev.aymee.support_api.topic.TopicRepository;
 

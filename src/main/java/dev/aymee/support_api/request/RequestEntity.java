@@ -1,8 +1,6 @@
 package dev.aymee.support_api.request;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 import dev.aymee.support_api.topic.TopicEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

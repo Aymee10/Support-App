@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.aymee.support_api.topic.TopicDto;
-
 @RestController
 @RequestMapping("/api/requests")
 public class RequestController {
