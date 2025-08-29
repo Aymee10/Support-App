@@ -62,18 +62,5 @@ public RequestEntity createRequest(RequestCreationDto requestDto) {
         
         return dto;
     }
-    public List<TopicDto> getAllTopics() {
-    return topicRepository.findAll()
-            .stream()
-            .map(this::convertToTopicDto)
-            .collect(Collectors.toList());
-}
-
-
-private TopicDto convertToTopicDto(TopicEntity topic) {
-    TopicDto dto = new TopicDto();
-    dto.setId(topic.getId());
-    dto.setName(topic.getName());
-    return dto;
-}
+    
 }

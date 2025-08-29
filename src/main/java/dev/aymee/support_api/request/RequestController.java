@@ -22,9 +22,5 @@ public class RequestController {
         List<RequestDto> requests = requestService.getAllRequests();
         return ResponseEntity.ok(requests);
     }
-    @GetMapping("/topics")
-    public ResponseEntity<List<TopicDto>> getAllTopics() {
-        List<TopicDto> topics = requestService.getAllTopics();
-        return ResponseEntity.ok(topics);
-    }
+ 
 }
