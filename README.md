@@ -31,7 +31,7 @@ Clona el repositorio:
 git clone https://github.com/Aymee10/Support-App.git
 
 Compila y ejecuta la aplicación:
-mvn clean install
+mvn clean install <br/>
 java -jar target/support-api-0.0.1-SNAPSHOT.jar
 
 ## Documentación de la API (Swagger UI)
@@ -39,5 +39,5 @@ http://localhost:8081/swagger-ui.html
 
 ## Colección de Postman
 Puedes descargar la colección de Postman para probar todos los endpoints aquí:
-[Descargar Colección de Postman](./docs/postman/Support API.postman_collection.json)
+(./docs/postman/Support API.postman_collection.json)
 
