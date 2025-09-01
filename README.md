@@ -3,7 +3,6 @@
 API para la gestión de solicitudes de soporte técnico. Permite a los usuarios crear, editar, eliminar y consultar solicitudes, asociadas a temas específicos.
 
  ## Tecnologías Utilizadas
-Lista las tecnologías principales.
 
 Lenguaje: Java 21
 
