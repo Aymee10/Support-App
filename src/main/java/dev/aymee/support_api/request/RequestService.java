@@ -1,10 +1,10 @@
 package dev.aymee.support_api.request;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
+import java.util.List;
+
+import java.util.stream.Collectors;
+import dev.aymee.support_api.exception.RequestException;
 import org.springframework.stereotype.Service;
 import dev.aymee.support_api.topic.TopicEntity;
 import dev.aymee.support_api.topic.TopicRepository;
@@ -20,19 +20,14 @@ public class RequestService {
     }
 
 public RequestDto createRequest(RequestCreationDto requestDto) {
-        Optional<TopicEntity> topic = topicRepository.findById(requestDto.getTopicId());
-        
-        if (topic.isEmpty()) {
-            throw new IllegalArgumentException("Topic not found with ID: " + requestDto.getTopicId());
-        }
-
-        RequestEntity newRequest = new RequestEntity();
+         TopicEntity topic = topicRepository.findById(requestDto.getTopicId())
+                .orElseThrow(() -> new RequestException("Topic not found with ID: " + requestDto.getTopicId())); 
+RequestEntity newRequest = new RequestEntity();
         newRequest.setApplicantName(requestDto.getApplicantName());
-        newRequest.setTopic(topic.get());
+        newRequest.setTopic(topic);
         newRequest.setDescription(requestDto.getDescription());
-        newRequest.setRequestDate(LocalDateTime.now());
         newRequest.setStatus(RequestStatusEntity.PENDING);
-        
+
         RequestEntity savedRequest = requestRepository.save(newRequest);
         return convertToDto(savedRequest);
     }

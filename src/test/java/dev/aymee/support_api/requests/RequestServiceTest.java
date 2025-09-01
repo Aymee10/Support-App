@@ -15,6 +15,8 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.any;
+
+import dev.aymee.support_api.exception.RequestException;
 import dev.aymee.support_api.request.RequestCreationDto;
 import dev.aymee.support_api.request.RequestDto;
 import dev.aymee.support_api.request.RequestEntity;
@@ -23,7 +25,7 @@ import dev.aymee.support_api.request.RequestService;
 import dev.aymee.support_api.request.RequestStatusEntity;
 import dev.aymee.support_api.topic.TopicEntity;
 import dev.aymee.support_api.topic.TopicRepository;
-import jakarta.persistence.EntityNotFoundException;
+
 
 public class RequestServiceTest {
     @Mock
@@ -102,6 +104,6 @@ public class RequestServiceTest {
         when(topicRepository.findById(99L)).thenReturn(Optional.empty());
 
         // Then: Verificar que se lanza una excepción
-        assertThrows(IllegalArgumentException.class, () -> requestService.createRequest(creationDto));
+        assertThrows(RequestException.class, () -> requestService.createRequest(creationDto));
     }
 }

@@ -27,7 +27,7 @@ public class RequestEntity {
     private String applicantName;
 
     @Column(nullable = false)
-    private LocalDateTime requestDate;
+    private LocalDateTime requestDate= LocalDateTime.now();;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "topic_id", nullable = false)
