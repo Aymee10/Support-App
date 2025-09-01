@@ -1,6 +1,9 @@
 package dev.aymee.support_api.request;
 
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import dev.aymee.support_api.topic.TopicEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,8 +32,9 @@ public class RequestEntity {
     @Column(nullable = false)
     private LocalDateTime requestDate= LocalDateTime.now();;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id", nullable = false)
+    @JsonIgnoreProperties({"requests", "hibernateLazyInitializer"}) 
     private TopicEntity topic;
 
     @Lob
