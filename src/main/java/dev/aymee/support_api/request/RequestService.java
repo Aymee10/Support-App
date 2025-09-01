@@ -82,4 +82,16 @@ RequestEntity newRequest = new RequestEntity();
         RequestEntity editedRequest = requestRepository.save(existingRequest);
         return convertToDto(editedRequest);
     }
+
+    public void deleteRequest(Long id) {
+        RequestEntity request = requestRepository.findById(id)
+            .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
+
+        // Solo se puede eliminar si la solicitud está atendida.
+        if (request.getStatus() == RequestStatusEntity.PENDING) {
+            throw new RequestException("Cannot delete a request that is still pending.");
+        }
+
+        requestRepository.delete(request);
+    }
 }
