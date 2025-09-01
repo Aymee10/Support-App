@@ -56,5 +56,13 @@ RequestEntity newRequest = new RequestEntity();
         
         return dto;
     }
-    
+    public RequestDto updateRequestStatus(Long id, RequestUpdateDto updateDto) {
+        RequestEntity existingRequest = requestRepository.findById(id)
+                .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
+
+        existingRequest.setStatus(updateDto.getStatus());
+        
+        RequestEntity updatedRequest = requestRepository.save(existingRequest);
+        return convertToDto(updatedRequest);
+    }
 }
