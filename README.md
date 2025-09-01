@@ -40,5 +40,5 @@ http://localhost:8081/swagger-ui.html
 ## Colección de Postman
 Puedes descargar la colección de Postman para probar todos los endpoints aquí:
 (./docs/postman/Support API.postman_collection.json)<br/>
-[Descargar] (https://github.com/Aymee10/Support-App/raw/main/docs/postman/Support%20API.postman_collection.json)<br/>
+
 <a href="https://github.com/Aymee10/Support-App/blob/main/docs/postman/Support%20API.postman_collection.json">Ver colección postman</a>
