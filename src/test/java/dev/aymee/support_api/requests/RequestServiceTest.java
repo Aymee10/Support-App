@@ -2,21 +2,28 @@ package dev.aymee.support_api.requests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.any;
+import dev.aymee.support_api.request.RequestCreationDto;
 import dev.aymee.support_api.request.RequestDto;
 import dev.aymee.support_api.request.RequestEntity;
 import dev.aymee.support_api.request.RequestRepository;
 import dev.aymee.support_api.request.RequestService;
+import dev.aymee.support_api.request.RequestStatusEntity;
 import dev.aymee.support_api.topic.TopicEntity;
 import dev.aymee.support_api.topic.TopicRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 public class RequestServiceTest {
     @Mock
@@ -51,5 +58,50 @@ public class RequestServiceTest {
          assertEquals("Alice", result.get(0).getApplicantName());
         assertEquals("Bob", result.get(1).getApplicantName());
 
+    }
+    @Test
+    void testCreateRequest_Success() {
+        // Given: Datos de entrada y objetos mock
+        RequestCreationDto creationDto = new RequestCreationDto();
+        creationDto.setApplicantName("Alice");
+        creationDto.setTopicId(1L);
+        creationDto.setDescription("Test description");
+
+        TopicEntity topicEntity = new TopicEntity();
+        topicEntity.setName("Test Topic");
+
+        RequestEntity savedEntity = new RequestEntity();
+        savedEntity.setId(1L);
+        savedEntity.setApplicantName("Alice");
+        savedEntity.setTopic(topicEntity);
+        savedEntity.setDescription("Test description");
+        savedEntity.setStatus(RequestStatusEntity.PENDING);
+        savedEntity.setRequestDate(LocalDateTime.now());
+
+        // Configurar el comportamiento de los mocks
+        when(topicRepository.findById(1L)).thenReturn(Optional.of(topicEntity));
+        when(requestRepository.save(any(RequestEntity.class))).thenReturn(savedEntity);
+
+        // When: Llamar al método del servicio
+        RequestDto result = requestService.createRequest(creationDto);
+
+        // Then: Verificar el resultado
+        assertEquals(savedEntity.getId(), result.getId());
+        assertEquals(savedEntity.getApplicantName(), result.getApplicantName());
+        assertEquals(savedEntity.getTopic().getName(), result.getTopicName());
+        assertEquals(savedEntity.getDescription(), result.getDescription());
+    }
+
+    @Test
+    void testCreateRequest_TopicNotFound() {
+        // Given: Un DTO con un ID de tema que no existe
+        RequestCreationDto creationDto = new RequestCreationDto();
+        creationDto.setTopicId(99L);
+        
+        // Configurar el mock para que no encuentre el tema
+        when(topicRepository.findById(99L)).thenReturn(Optional.empty());
+
+        // Then: Verificar que se lanza una excepción
+        assertThrows(IllegalArgumentException.class, () -> requestService.createRequest(creationDto));
     }
 }

@@ -1,8 +1,14 @@
 package dev.aymee.support_api.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class RequestCreationDto {
+    @NotBlank
     private String applicantName;
+     @NotNull
     private Long topicId;
+    @NotBlank
     private String description;
     public RequestCreationDto() {
     }

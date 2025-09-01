@@ -19,7 +19,7 @@ public class RequestService {
         this.topicRepository = topicRepository;
     }
 
-public RequestEntity createRequest(RequestCreationDto requestDto) {
+public RequestDto createRequest(RequestCreationDto requestDto) {
         Optional<TopicEntity> topic = topicRepository.findById(requestDto.getTopicId());
         
         if (topic.isEmpty()) {
@@ -31,8 +31,10 @@ public RequestEntity createRequest(RequestCreationDto requestDto) {
         newRequest.setTopic(topic.get());
         newRequest.setDescription(requestDto.getDescription());
         newRequest.setRequestDate(LocalDateTime.now());
+        newRequest.setStatus(RequestStatusEntity.PENDING);
         
-        return requestRepository.save(newRequest);
+        RequestEntity savedRequest = requestRepository.save(newRequest);
+        return convertToDto(savedRequest);
     }
 
     public List<RequestDto> getAllRequests() {
