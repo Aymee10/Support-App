@@ -39,6 +39,13 @@ RequestEntity newRequest = new RequestEntity();
             .map(this::convertToDto)
             .collect(Collectors.toList());
     }
+
+    public RequestDto getRequestById(Long id) {
+    RequestEntity request = requestRepository.findById(id)
+            .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
+    return convertToDto(request);
+}
+
     private RequestDto convertToDto(RequestEntity request) {
         RequestDto dto = new RequestDto();
         dto.setId(request.getId());

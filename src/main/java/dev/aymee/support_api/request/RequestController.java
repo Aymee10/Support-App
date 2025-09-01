@@ -31,6 +31,11 @@ public class RequestController {
         return ResponseEntity.ok(requests);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<RequestDto> getRequestById(@PathVariable Long id) {
+        RequestDto request = requestService.getRequestById(id);
+        return ResponseEntity.ok(request);
+    }
     @PostMapping
     public ResponseEntity<RequestDto> createRequest(@Valid @RequestBody RequestCreationDto requestCreationDto) {
         RequestDto createdRequest = requestService.createRequest(requestCreationDto);
