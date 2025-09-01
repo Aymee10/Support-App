@@ -1,6 +1,7 @@
 package dev.aymee.support_api.request;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -56,5 +57,29 @@ RequestEntity newRequest = new RequestEntity();
         
         return dto;
     }
-    
+    public RequestDto updateRequestStatus(Long id, RequestUpdateDto updateDto) {
+        RequestEntity existingRequest = requestRepository.findById(id)
+                .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
+
+        existingRequest.setStatus(updateDto.getStatus());
+        
+        RequestEntity updatedRequest = requestRepository.save(existingRequest);
+        return convertToDto(updatedRequest);
+    }
+
+    public RequestDto editRequest(Long id, RequestEditDto editDto) {
+        RequestEntity existingRequest = requestRepository.findById(id)
+                .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
+
+        TopicEntity topic = topicRepository.findById(editDto.getTopicId())
+                .orElseThrow(() -> new RequestException("Topic not found with ID: " + editDto.getTopicId()));
+
+        existingRequest.setApplicantName(editDto.getApplicantName());
+        existingRequest.setTopic(topic);
+        existingRequest.setDescription(editDto.getDescription());
+        existingRequest.setEditedDate(LocalDateTime.now()); // Actualiza la fecha de edición
+
+        RequestEntity editedRequest = requestRepository.save(existingRequest);
+        return convertToDto(editedRequest);
+    }
 }
