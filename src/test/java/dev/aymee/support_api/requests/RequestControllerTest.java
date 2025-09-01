@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import dev.aymee.support_api.request.RequestCreationDto;
 import dev.aymee.support_api.request.RequestEditDto;
+import dev.aymee.support_api.request.RequestRepository;
 import dev.aymee.support_api.request.RequestStatusEntity;
 import dev.aymee.support_api.request.RequestUpdateDto;
 import dev.aymee.support_api.topic.TopicEntity;
@@ -32,7 +34,8 @@ public class RequestControllerTest {
     private ObjectMapper objectMapper;
     @Autowired
     private TopicRepository topicRepository;
-
+     @Autowired 
+    private RequestRepository requestRepository;
     private Long existingTopicId;
 
     @BeforeEach
@@ -43,6 +46,11 @@ public class RequestControllerTest {
                     return topicRepository.save(newTopic);
                 });
         existingTopicId = topic.getId();
+    }
+    @AfterEach 
+    void cleanup() {
+        requestRepository.deleteAll();
+        topicRepository.deleteAll();
     }
 
 
@@ -206,4 +214,36 @@ public class RequestControllerTest {
                 .andExpect(status().isNotFound()); // Entonces: esperamos un 404
     }
 
+
+     @Test
+    void testDeleteRequest_Success_WhenAttended() throws Exception {
+        
+        RequestCreationDto creationDto = new RequestCreationDto();
+        creationDto.setApplicantName("Attended Request");
+        creationDto.setTopicId(existingTopicId);
+        creationDto.setDescription("This request is to be deleted.");
+        
+        String response = mockMvc.perform(MockMvcRequestBuilders.post("/api/requests")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(creationDto)))
+                .andReturn().getResponse().getContentAsString();
+                
+        Long requestId = objectMapper.readTree(response).get("id").asLong();
+
+        RequestUpdateDto updateDto = new RequestUpdateDto();
+        updateDto.setStatus(RequestStatusEntity.ATTENDED);
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/requests/{id}", requestId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateDto)))
+                .andExpect(status().isOk());
+
+        // Cuando: se envía una petición DELETE con el ID de la petición atendida
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/requests/{id}", requestId))
+                .andExpect(status().isNoContent()); 
+
+        // Verificamos que la petición ya no existe
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/requests/{id}", requestId))
+               .andExpect(status().isNotFound());
+    }
+    
 }
