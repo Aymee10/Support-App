@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,5 +47,11 @@ public class RequestController {
     public ResponseEntity<RequestDto> editRequest(@PathVariable Long id, @Valid @RequestBody RequestEditDto editDto) {
         RequestDto editedRequest = requestService.editRequest(id, editDto);
         return ResponseEntity.ok(editedRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRequest(@PathVariable Long id) {
+        requestService.deleteRequest(id);
+        return ResponseEntity.noContent().build(); 
     }
 }
