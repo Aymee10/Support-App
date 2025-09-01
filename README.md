@@ -28,7 +28,7 @@ Manejo de dependencias: Maven
 
 ## Configuración y Ejecución
 Clona el repositorio:
-git clone https://github.com/tu-usuario/nombre-del-repo.git
+git clone https://github.com/Aymee10/Support-App.git
 
 Compila y ejecuta la aplicación:
 mvn clean install
