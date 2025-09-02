@@ -23,7 +23,7 @@ Manejo de dependencias: Maven
 <img width="3840" height="1786" alt="class diagram support api" src="https://github.com/user-attachments/assets/db58a220-c6eb-4367-925c-b9c399b62a81" />
 
 
-## Diagrama Entidad-relacion
+## Diagrama Entidad-Relación
 <img width="3289" height="3840" alt="diagrama entidad relacion support api" src="https://github.com/user-attachments/assets/980f6170-7478-4ca3-8bf7-caf087d91eaf" />
 
 ## Configuración y Ejecución
