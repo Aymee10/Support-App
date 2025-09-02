@@ -43,6 +43,9 @@ http://localhost:8081/swagger-ui.html
 
 <img width="1339" height="743" alt="swagger doc" src="https://github.com/user-attachments/assets/6910c578-c194-491e-abcf-3bde6ac6043e" />
 
+<img width="1330" height="525" alt="swagger2" src="https://github.com/user-attachments/assets/e38264f3-88d5-44eb-abd0-3e8a0277f57d" />
+
+
 
 ## Colección de Postman
 Puedes descargar la colección de Postman para probar todos los endpoints aquí:
