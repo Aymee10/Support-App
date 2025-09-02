@@ -34,6 +34,10 @@ Compila y ejecuta la aplicación:
 mvn clean install <br/>
 java -jar target/support-api-0.0.1-SNAPSHOT.jar
 
+## Test coverage
+<img width="417" height="479" alt="Captura de pantalla 2025-09-01 135653" src="https://github.com/user-attachments/assets/095ca609-2082-4a33-b5a2-2929872cbbf4" />
+
+
 ## Documentación de la API (Swagger UI)
 http://localhost:8081/swagger-ui.html
 
