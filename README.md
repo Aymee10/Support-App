@@ -41,6 +41,9 @@ java -jar target/support-api-0.0.1-SNAPSHOT.jar
 ## Documentación de la API (Swagger UI)
 http://localhost:8081/swagger-ui.html
 
+<img width="1339" height="743" alt="swagger doc" src="https://github.com/user-attachments/assets/6910c578-c194-491e-abcf-3bde6ac6043e" />
+
+
 ## Colección de Postman
 Puedes descargar la colección de Postman para probar todos los endpoints aquí:
 (./docs/postman/Support API.postman_collection.json)<br/>
