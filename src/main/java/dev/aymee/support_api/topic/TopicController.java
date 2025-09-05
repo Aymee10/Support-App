@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/topics")
 public class TopicController {
-TopicService topicService;
+ITopicService topicService;
 
 
-       public TopicController(TopicService topicService) {
+       public TopicController(ITopicService topicService) {
     this.topicService = topicService;
 }
 

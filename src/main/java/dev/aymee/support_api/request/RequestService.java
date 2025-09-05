@@ -11,10 +11,10 @@ import dev.aymee.support_api.topic.TopicEntity;
 import dev.aymee.support_api.topic.TopicRepository;
 
 @Service
-public class RequestService {
+public class RequestService implements IRequestService {
    private final RequestRepository requestRepository;
     private final TopicRepository topicRepository;
-
+    
     public RequestService(RequestRepository requestRepository, TopicRepository topicRepository) {
         this.requestRepository = requestRepository;
         this.topicRepository = topicRepository;
@@ -33,6 +33,7 @@ RequestEntity newRequest = new RequestEntity();
         return convertToDto(savedRequest);
     }
 
+    @Override
     public List<RequestDto> getAllRequests() {
         return requestRepository.findAllByOrderByRequestDateAsc()
             .stream()
@@ -40,12 +41,13 @@ RequestEntity newRequest = new RequestEntity();
             .collect(Collectors.toList());
     }
 
+    @Override 
     public RequestDto getRequestById(Long id) {
     RequestEntity request = requestRepository.findById(id)
             .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
     return convertToDto(request);
 }
-
+ 
     private RequestDto convertToDto(RequestEntity request) {
         RequestDto dto = new RequestDto();
         dto.setId(request.getId());
@@ -64,6 +66,8 @@ RequestEntity newRequest = new RequestEntity();
         
         return dto;
     }
+
+    @Override
     public RequestDto updateRequestStatus(Long id, RequestUpdateDto updateDto) {
         RequestEntity existingRequest = requestRepository.findById(id)
                 .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
@@ -74,6 +78,7 @@ RequestEntity newRequest = new RequestEntity();
         return convertToDto(updatedRequest);
     }
 
+    @Override
     public RequestDto editRequest(Long id, RequestEditDto editDto) {
         RequestEntity existingRequest = requestRepository.findById(id)
                 .orElseThrow(() -> new RequestException("Request not found with ID: " + id));
@@ -90,6 +95,7 @@ RequestEntity newRequest = new RequestEntity();
         return convertToDto(editedRequest);
     }
 
+    @Override
     public void deleteRequest(Long id) {
         RequestEntity request = requestRepository.findById(id)
             .orElseThrow(() -> new RequestException("Request not found with ID: " + id));

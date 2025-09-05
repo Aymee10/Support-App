@@ -5,12 +5,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TopicService {
+public class TopicService implements ITopicService{
     private final TopicRepository topicRepository;
 
         public TopicService(TopicRepository topicRepository) {
         this.topicRepository = topicRepository;
     }
+    @Override
     public List<TopicDto> getAllTopics() {
     return topicRepository.findAllByOrderByIdAsc()
             .stream()
