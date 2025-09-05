@@ -19,9 +19,9 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/requests")
 public class RequestController {
-   private final RequestService requestService;
+   private final IRequestService requestService;
 
-   public RequestController(RequestService requestService) {
+   public RequestController(IRequestService requestService) {
     this.requestService = requestService;
    }
 
